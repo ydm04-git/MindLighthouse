@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MindLighthouse</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="aurora-bg"></div>
+    
+    <header class="app-header">
+        <div class="logo">MindLighthouse</div>
+        <div class="header-controls">
+            <button class="emergency-btn" id="emergencyBtn" style="display: none;">🚨 긴급 핫라인</button>
+            <div class="sound-controls">
+                <span class="sound-label">Waves & Lo-fi</span>
+                <button class="icon-btn" id="musicToggle">
+                    <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none"><path d="M9 18V5l12-2v13"></path><circle cx="6" cy="18" r="3"></circle><circle cx="18" cy="16" r="3"></circle></svg>
+                </button>
+                <button class="icon-btn" id="soundToggle">
+                    <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="app-main">
+        <!-- View 1: Landing -->
+        <section id="view-landing" class="view active">
+            <div class="glass-panel text-center landing-panel">
+                <div class="landing-icon">
+                    <svg viewBox="0 0 24 24" width="48" height="48" stroke="var(--primary)" stroke-width="2" fill="none"><path d="M9 18h6M10 22h4M12 2v2M4.93 4.93l1.41 1.41M2 12h2M4.93 19.07l1.41-1.41M19.07 19.07l-1.41-1.41M22 12h-2M19.07 4.93l-1.41 1.41M12 6a6 6 0 1 0 0 12"></path></svg>
+                </div>
+                <h1 class="welcome-title">마음의 등대에 오신 것을 환영합니다</h1>
+                <p class="welcome-subtitle">잔잔한 파도 소리와 함께 휴식을 시작하세요</p>
+                <button class="btn-primary mt-lg" onclick="app.navigateTo('view-checkin')">체크인 시작하기 &rarr;</button>
+                
+                <div class="tags mt-md">
+                    <span class="tag">#명상</span>
+                    <span class="tag">#수면</span>
+                    <span class="tag">#스트레스_해소</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- View 2: Check-in -->
+        <section id="view-checkin" class="view">
+            <div class="checkin-container text-center">
+                <h1 class="page-title">지금 당신의 마음은 어떤가요?</h1>
+                <p class="page-subtitle">오늘 하루 쌓인 피로와 감정을 등대에 비춰보세요. 당신의 이야기를 들을 준비가 되었습니다.</p>
+                
+                <div class="slider-container mt-lg">
+                    <div class="circular-slider-display">
+                        <span class="percent" id="burnoutValue">45%</span>
+                        <span class="label">번아웃 지수</span>
+                    </div>
+                    <input type="range" id="burnoutSlider" min="0" max="100" value="45" class="horizontal-slider">
+                </div>
+
+                <div class="emotion-grid mt-lg">
+                    <!-- 감정 -->
+                    <button class="emotion-btn" onclick="app.selectEmotion('지쳐요', this)">
+                        <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none"><rect x="2" y="7" width="20" height="10" rx="2" ry="2"></rect><line x1="22" y1="11" x2="22" y2="13"></line><line x1="6" y1="12" x2="10" y2="12"></line></svg>
+                        <span>지쳐요</span>
+                    </button>
+                    <button class="emotion-btn" onclick="app.selectEmotion('불안해요', this)">
+                        <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none"><path d="M2 12h4l2-3 4 6 4-6 2 3h4"></path></svg>
+                        <span>불안해요</span>
+                    </button>
+                    <button class="emotion-btn" onclick="app.selectEmotion('슬퍼요', this)">
+                        <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none"><path d="M20 16.2A4.5 4.5 0 0 0 17.5 8h-1.8A7 7 0 1 0 4 14.9"></path><path d="M12 22v-4M8 22v-2M16 22v-2"></path></svg>
+                        <span>슬퍼요</span>
+                    </button>
+                    <button class="emotion-btn" onclick="app.selectEmotion('화나요', this)">
+                        <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
+                        <span>화나요</span>
+                    </button>
+                    <button class="emotion-btn" onclick="app.selectEmotion('무기력해요', this)">
+                        <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none"><path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z"></path></svg>
+                        <span>무기력해요</span>
+                    </button>
+                    <!-- 상황 -->
+                    <button class="emotion-btn" onclick="app.selectEmotion('학업/성적', this)">
+                        <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
+                        <span>학업/성적</span>
+                    </button>
+                    <button class="emotion-btn" onclick="app.selectEmotion('대인관계', this)">
+                        <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+                        <span>대인관계</span>
+                    </button>
+                    <button class="emotion-btn" onclick="app.selectEmotion('진로고민', this)">
+                        <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none"><circle cx="12" cy="12" r="10"></circle><polyline points="12 16 16 12 12 8"></polyline><line x1="8" y1="12" x2="16" y2="12"></line></svg>
+                        <span>진로고민</span>
+                    </button>
+                    <button class="emotion-btn" onclick="app.selectEmotion('가족문제', this)">
+                        <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+                        <span>가족문제</span>
+                    </button>
+                    <button class="emotion-btn" onclick="app.selectEmotion('수면부족', this)">
+                        <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+                        <span>수면부족</span>
+                    </button>
+                </div>
+                
+                <div class="voice-btn-container mt-lg">
+                    <button class="voice-btn" id="voiceBtn">
+                        <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path><path d="M19 10v2a7 7 0 0 1-14 0v-2"></path><line x1="12" y1="19" x2="12" y2="23"></line><line x1="8" y1="23" x2="16" y2="23"></line></svg>
+                    </button>
+                    <p class="voice-hint">버튼을 길게 누르고 목소리로 털어놓으세요</p>
+                    <button class="btn-primary mt-lg" onclick="app.navigateTo('view-report')">리포트 확인하기 &rarr;</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- View 3: Report -->
+        <section id="view-report" class="view">
+            <div class="report-container">
+                <h1 class="page-title text-left">AI 공감 보고서</h1>
+                <p class="page-subtitle text-left">당신의 지친 마음을 등대처럼 비춥니다. 오늘의 당신을 위한 AI의 따뜻한 통찰을 확인해보세요.</p>
+                
+                <div class="report-grid mt-md">
+                    <div class="glass-panel report-card weather-card">
+                        <div class="card-header">
+                            <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+                            <span>마음 날씨</span>
+                        </div>
+                        <h2 class="card-title">흐림, 하지만 <span class="highlight-green">희망의 빛</span>이 틈새로 내리고 있습니다.</h2>
+                        <p class="card-desc">구름이 가득 찬 하늘처럼 조금은 무거운 기분이시군요. 하지만 사이사이로 비치는 햇살은 곧 다시 맑아질 당신의 마음을 예고하고 있어요.</p>
+                    </div>
+
+                    <div class="glass-panel report-card burnout-card">
+                        <div class="card-header">
+                            <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
+                            <span>번아웃 지수</span>
+                        </div>
+                        <div class="burnout-level-display">
+                            <span class="level-text">LEVEL: CRITICAL</span>
+                            <span class="level-percent" id="reportBurnoutVal">82%</span>
+                        </div>
+                        <div class="progress-bar"><div class="progress-fill" id="reportProgressBar" style="width: 82%;"></div></div>
+                        <div class="burnout-advice">
+                            현재 에너지가 많이 소진된 상태입니다. 무언가를 해내야 한다는 압박감을 잠시 내려놓아도 괜찮습니다.
+                        </div>
+                    </div>
+
+                    <div class="glass-panel action-card peer-card" onclick="app.navigateTo('view-chat')">
+                        <div class="action-icon">
+                            <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+                        </div>
+                        <h3>세계의 또래들과 이야기 나누기</h3>
+                        <p>당신과 비슷한 날씨를 지닌 사람들과 익명으로 대화하며 공감을 얻어보세요.</p>
+                        <button class="btn-secondary green">함께하기</button>
+                    </div>
+
+                    <div class="glass-panel action-card comfort-card" onclick="app.navigateTo('view-comfort')">
+                        <div class="action-icon">
+                            <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none"><path d="M3 22v-8c0-2.2 1.8-4 4-4h10c2.2 0 4 1.8 4 4v8"></path><path d="M10 10V6a2 2 0 0 1 2-2h0a2 2 0 0 1 2 2v4"></path><path d="M14 2v4"></path><path d="M14 22v-4"></path><path d="M10 22v-4"></path></svg>
+                        </div>
+                        <h3>나만의 힐링 공간으로 들어가기</h3>
+                        <p>AI가 설계한 당신만을 위한 가상 도피처에서 잠시 숨을 골라보세요.</p>
+                        <button class="btn-secondary purple">입장하기</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- View 4: Comfort Room -->
+        <section id="view-comfort" class="view">
+            <div class="comfort-container text-center" id="comfortContainer">
+                <div class="active-users-count">
+                    <svg viewBox="0 0 24 24" width="16" height="16" stroke="var(--primary-light)" stroke-width="2" fill="none"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+                    현재 12명의 빛이 함께하고 있습니다
+                </div>
+                <button class="close-btn" onclick="app.navigateTo('view-report')">
+                    <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                </button>
+                <div class="breathing-circle" id="breathingCircle">
+                    <span id="breathingText">숨을 들이마시세요</span>
+                    <span class="touch-hint">Touch to interaction</span>
+                </div>
+                <div class="comfort-footer">
+                    <h3>오로라를 만지며 소리에 집중해보세요</h3>
+                    <p>당신의 움직임에 따라 빛이 일렁이며, 소리가 부드럽게 변합니다.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- View 5: Peer Chat -->
+        <section id="view-chat" class="view">
+            <div class="chat-container glass-panel">
+                <div class="chat-header">
+                    <button class="back-btn" onclick="app.navigateTo('view-report')">
+                        <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+                    </button>
+                    <div class="chat-title-area">
+                        <h2>피어 채팅룸</h2>
+                        <span class="online-count"><svg viewBox="0 0 24 24" width="12" height="12" stroke="currentColor" stroke-width="2" fill="none"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle></svg> 현재 4명의 러너가 함께하고 있습니다.</span>
+                    </div>
+                    <div class="chat-stats">
+                        <div class="chat-limit">
+                            <span class="limit-label">오늘의 대화 가능 횟수</span>
+                            <span class="limit-value" id="chatLimitValue">2/3</span>
+                        </div>
+                        <button class="translate-btn active">
+                            <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2" fill="none"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg> Real-time Translation Active
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="chat-messages" id="chatMessages">
+                    <!-- Messages will be injected by JS -->
+                </div>
+
+                <div class="emoticon-picker" id="emoticonPicker" style="display: none;">
+                    <div class="emoticon-grid">
+                        <button onclick="app.insertEmoticon('😊')">😊</button>
+                        <button onclick="app.insertEmoticon('😢')">😢</button>
+                        <button onclick="app.insertEmoticon('👏')">👏</button>
+                        <button onclick="app.insertEmoticon('❤️')">❤️</button>
+                        <button onclick="app.insertEmoticon('🙌')">🙌</button>
+                        <button onclick="app.insertEmoticon('🔥')">🔥</button>
+                        <button onclick="app.insertEmoticon('✨')">✨</button>
+                        <button onclick="app.insertEmoticon('💪')">💪</button>
+                        <button onclick="app.insertEmoticon('🫂')">🫂</button>
+                        <button onclick="app.insertEmoticon('👍')">👍</button>
+                    </div>
+                </div>
+
+                <div class="chat-input-area">
+                    <button class="icon-btn" onclick="app.openAttachment()">
+                        <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="16"></line><line x1="8" y1="12" x2="16" y2="12"></line></svg>
+                    </button>
+                    <input type="text" id="chatInput" placeholder="메시지를 입력하세요..." onkeypress="app.handleChatEnter(event)">
+                    <button class="icon-btn" onclick="app.openEmoticon()">
+                        <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none"><circle cx="12" cy="12" r="10"></circle><path d="M8 14s1.5 2 4 2 4-2 4-2"></path><line x1="9" y1="9" x2="9.01" y2="9"></line><line x1="15" y1="9" x2="15.01" y2="9"></line></svg>
+                    </button>
+                    <button class="send-btn" onclick="app.sendMessage()">
+                        <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+                    </button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="app-footer">
+        <div class="footer-left">
+            <span class="logo-small">MindLighthouse</span>
+            <span class="copyright">© 2024 MindLighthouse. Illuminating your path to recovery.</span>
+        </div>
+        <div class="footer-links">
+            <a href="#">Support</a>
+            <a href="#">Privacy Policy</a>
+            <a href="#">Burnout Resources</a>
+            <a href="#">Contact</a>
+        </div>
+    </footer>
+
+    <div id="chatLimitModal" class="modal-overlay" style="display: none;">
+        <div class="glass-panel modal-content text-center">
+            <h2 style="margin-bottom: 16px;">오늘의 채팅이 끝났습니다.</h2>
+            <p style="color: var(--text-secondary); margin-bottom: 24px;">행복한 하루 보내세요.</p>
+            <button class="btn-primary" onclick="app.closeChatLimitModal()">확인</button>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
